@@ -2,10 +2,56 @@
   {
     "id": 87421,
     "name": "Intro to JavaScript Course",
-    "startDate": "20226-02-01",
+    "startDate": "2026-02-01",
     "participants": [
       12345,
       12346
+    ]
+  },
+  {
+    "id": 87422,
+    "name": "Advanced Node.js",
+    "startDate": "2026-03-01",
+    "participants": [
+      12347,
+      12348,
+      12349,
+      12350
+    ]
+  },
+  {
+    "id": 87423,
+    "name": "Python for Data Analysis",
+    "startDate": "2026-03-10",
+    "participants": [
+      12351,
+      12352,
+      12353,
+      12354
+    ]
+  },
+  {
+    "id": 87424,
+    "name": "React and Frontend",
+    "startDate": "2026-04-01",
+    "participants": [
+      12355,
+      12356,
+      12357,
+      12358
+    ]
+  },
+  {
+    "id": 87425,
+    "name": "DevOps Fundamentals",
+    "startDate": "2026-04-15",
+    "participants": [
+      12359,
+      12360,
+      12361,
+      12362,
+      12363,
+      12364
     ]
   }
 ]

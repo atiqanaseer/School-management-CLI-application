@@ -1,26 +1,26 @@
 import { saveCourseData, loadCourseData } from './storage.js';
 
-function addCourse() {
+function addCourse(courseName , startDate) {
   // TODO: Implement logic
 }
 
-function updateCourse() {
+function updateCourse(courseID, courseName , startDate) {
   // TODO: Implement logic
 }
 
-function deleteCourse() {
+function deleteCourse(courseID) {
   // TODO: Implement logic
 }
 
-function joinCourse() {
+function joinCourse(courseID, traineeID) {
   // TODO: Implement logic
 }
 
-function leaveCourse() {
+function leaveCourse(courseID, traineeID) {
   // TODO: Implement logic
 }
 
-function getCourse() {
+function getCourse(courseID) {
   // TODO: Implement logic
 }
 
