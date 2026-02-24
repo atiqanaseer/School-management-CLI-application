@@ -2,7 +2,6 @@ import { saveTraineeData, loadTraineeData } from './storage.js';
 
 function addTrainee(firstName, lastName) {
   // TODO: Implement the logic
-
 }
 
 function updateTrainee(traineeID, firstName, lastName) {
