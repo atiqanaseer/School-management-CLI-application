@@ -49,9 +49,9 @@ function addCourse(courseName, startDate) {
   // generate unique ID between 0 and 99999
   const generateUniqueId = items => {
     let id;
-    do {
+    do { // do generate a random ID
       id = Math.floor(Math.random() * 100000);
-    } while (items.some(item => item.id === id));
+    } while (items.some(item => item.id === id)); // until this is false
     return id;
   };
 
@@ -70,10 +70,10 @@ function addCourse(courseName, startDate) {
 }
 
 function updateCourse(courseID, courseName, startDate) {
-  courseID = parseInt(courseID, 10);
   requireParam(courseID, 'ERROR: Must provide ID, name and start date.');
   requireParam(courseName, 'ERROR: Must provide ID, name and start date.');
   requireParam(startDate, 'ERROR: Must provide ID, name and start date.');
+  courseID = parseInt(courseID, 10); // parse a string and returns an integer
   if (!isValidDate(startDate)) {
     throw new Error('ERROR: Invalid start date. Must be in yyyy-MM-dd format');
   }
@@ -90,8 +90,8 @@ function updateCourse(courseID, courseName, startDate) {
 }
 
 function deleteCourse(courseID) {
-  courseID = parseInt(courseID, 10);
   requireParam(courseID, 'ERROR: Must provide course ID');
+  courseID = parseInt(courseID, 10);
   const courses = loadCourseData() || [];
   const idx = findIdxById(courses, courseID);
   if (idx === -1) throw new Error(`ERROR: Course with ID ${courseID} does not exist`);
@@ -102,10 +102,10 @@ function deleteCourse(courseID) {
 }
 
 function joinCourse(courseID, traineeID) {
-  courseID = parseInt(courseID, 10);
-  traineeID = parseInt(traineeID, 10);
   requireParam(courseID, 'ERROR: Must provide course ID and trainee ID');
   requireParam(traineeID, 'ERROR: Must provide course ID and trainee ID');
+  courseID = parseInt(courseID, 10);
+  traineeID = parseInt(traineeID, 10);
 
   const courses = loadCourseData() || [];
   const trainees = loadTraineeData() || [];
@@ -113,7 +113,7 @@ function joinCourse(courseID, traineeID) {
   const course = requireCourse(courses, courseID);
   const trainee = requireTrainee(trainees, traineeID);
 
-  course.participants ||= [];
+  course.participants = course.participants || [];
   if (course.participants.includes(traineeID)) {
     throw new Error('ERROR: The Trainee has already joined this course');
   }
@@ -132,9 +132,10 @@ function joinCourse(courseID, traineeID) {
 }
 
 function leaveCourse(courseID, traineeID) {
-  courseID = parseInt(courseID, 10);
-  traineeID = parseInt(traineeID, 10);  requireParam(courseID, 'ERROR: Must provide course ID and trainee ID');
+  requireParam(courseID, 'ERROR: Must provide course ID and trainee ID');
   requireParam(traineeID, 'ERROR: Must provide course ID and trainee ID');
+  courseID = parseInt(courseID, 10);
+  traineeID = parseInt(traineeID, 10);
 
   const courses = loadCourseData() || [];
   const trainees = loadTraineeData() || [];
@@ -145,26 +146,30 @@ function leaveCourse(courseID, traineeID) {
   const idx = (course.participants || []).indexOf(traineeID);
   if (idx === -1) throw new Error('ERROR: The Trainee did not join the course');
 
-  course.participants.splice(idx, 1);
+  course.participants.splice(idx, 1); 
   saveCourseData(courses);
   return `${traineeName(trainee)} Left ${course.name}`;
 }
 
 function getCourse(courseID) {
-  courseID = parseInt(courseID, 10);
   requireParam(courseID, 'ERROR: Must provide course ID');
+  courseID = parseInt(courseID, 10);
 
+  // Load all courses and trainees from storage
   const courses = loadCourseData() || [];
   const trainees = loadTraineeData() || [];
 
   const course = requireCourse(courses, courseID);
   const participants = (course.participants || [])
-    .map(pid => findById(trainees, pid))
-    .filter(Boolean)
-    .map(t => `${t.id} ${t.firstName} ${t.lastName}`);
+    .map(pid => findById(trainees, pid)) // convert IDs to trainee objects
+    .filter(Boolean) // removes any null/undefined values 
+    .map(t => `${t.id} ${t.firstName} ${t.lastName}`); //formats as "ID FirstName LastName" strings
 
+  // Create header with course details
   const header = `${course.id} ${course.name} ${course.startDate}`;
+  // Count participants
   const count = participants.length;
+  // If no participants: shows empty list, otherwise shows formatted list
   const list = participants.map(p => `- ${p}`).join('\n');
   return `${header}\nParticipants (${count}):${count ? `\n${list}` : ''}`;
 }
@@ -173,11 +178,12 @@ function getAllCourses() {
   const courses = (loadCourseData() || []).slice().sort((a, b) => a.startDate.localeCompare(b.startDate));
   if (courses.length === 0) return 'Courses:\n\nTotal: 0';
 
+  // create a list of all courses
   const list = courses.map(c => {
     const count = (c.participants || []).length;
-    const full = count >= 20 ? ' FULL' : '';
+    const full = count >= 20 ? ' FULL' : ''; // if count >= 20 then full else emppty string
     return `${c.id} ${c.name} ${c.startDate} ${count}${full}`;
-  }).join('\n');
+  }).join('\n'); // this joins array element with a newline and returns as a string
 
   return `Courses:\n${list}\n\nTotal: ${courses.length}`;
 }

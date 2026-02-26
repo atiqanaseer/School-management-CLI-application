@@ -25,7 +25,7 @@ export function parseCommand(userInput) {
   //  case sensitivity
   const command = inputParts[0].toUpperCase();
   const subcommand = inputParts[1].toUpperCase();
-  const args = inputParts.slice(2);
+  const args = inputParts.slice(2); // returns a new array containing a subset of the elements from the original array
   
   // return the object
   return {
